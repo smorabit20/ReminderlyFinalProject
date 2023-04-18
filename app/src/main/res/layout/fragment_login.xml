@@ -36,10 +36,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileName" />
+            app:layout_constraintTop_toBottomOf="@+id/profileUsername" />
 
         <Button
-            android:id="@+id/createButton"
+            android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/password" />
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/registerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"
@@ -60,10 +60,10 @@
             android:text="register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createButton" />
+            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
         <EditText
-            android:id="@+id/profileName"
+            android:id="@+id/profileUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"

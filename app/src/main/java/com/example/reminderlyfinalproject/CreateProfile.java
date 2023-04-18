@@ -65,10 +65,10 @@ public class CreateProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_profile, container, false);
 
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
-        view.findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //username
-                EditText username = view.findViewById(R.id.profileName);
+                EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
                 //password
                 EditText password = view.findViewById(R.id.password);
