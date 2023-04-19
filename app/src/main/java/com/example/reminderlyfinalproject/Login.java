@@ -1,12 +1,16 @@
 package com.example.reminderlyfinalproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +63,38 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+
+        //BUTTONS
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        //LOGIN BUTTON
+        view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                //username
+                EditText username = view.findViewById(R.id.profileUsername);
+                String user = username.getText().toString();
+                //password
+                EditText password = view.findViewById(R.id.password);
+                String pass = password.getText().toString();
+
+                if ((user.equals(""))) {
+                    username.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information", Toast.LENGTH_LONG).show();
+                } else if (pass.equals("")) {
+                    password.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(user, pass);
+                    Navigation.findNavController(view).navigate(R.id.action_login_to_createProfile, bundle);
+                }
+
+            }
+        });
+        return view;
     }
 }
