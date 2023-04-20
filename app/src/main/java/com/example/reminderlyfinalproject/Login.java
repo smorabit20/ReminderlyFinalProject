@@ -90,7 +90,7 @@ public class Login extends Fragment {
                 else {
                     Bundle bundle = new Bundle();
                     bundle.putString(user, pass);
-                    Navigation.findNavController(view).navigate(R.id.action_login_to_createProfile, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
                 }
 
             }
