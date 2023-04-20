@@ -10,7 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,8 +82,36 @@ public class Login extends Fragment {
         //LOGIN BUTTON
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
 
+
+
             @Override
             public void onClick(View v){
+               /* JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //grabs user input username and converts to string variable called username
+                        TextView loginUser = view.findViewById(R.id.profileUsername);
+                        String username = loginUser.toString();
+
+                        //grabs user input password and convert to string variable
+                        TextView loginPassword = view.findViewById(R.id.password);
+                        String password = loginPassword.toString();
+
+                        //make list out of "get" usernames and need to iterate through to make sure username works!
+                        //List<String> tableUsernames = new ArrayList();
+                            try {
+                            username = response.getString("username");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        int x = 5;
+                    }
+                }); */
+
                 //username
                 EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
