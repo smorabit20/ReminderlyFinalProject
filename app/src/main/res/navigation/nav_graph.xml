@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/createBtn">
+    app:startDestination="@id/welcomeScreen">
 
     <fragment
-        android:id="@+id/createBtn"
+        android:id="@+id/welcomeScreen"
         android:name="com.example.reminderlyfinalproject.Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
