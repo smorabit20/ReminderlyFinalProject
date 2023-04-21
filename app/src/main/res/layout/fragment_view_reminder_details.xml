@@ -1,14 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewReminderDetails">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/editRemiinder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="155dp"
+            android:text="Edit Reminder"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="155dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Reminder Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editRemiinder" />
+
+        <EditText
+            android:id="@+id/location2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="155dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Reminder Location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time2" />
+
+        <EditText
+            android:id="@+id/time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="155dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Reminder Time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name2" />
+
+        <Button
+            android:id="@+id/updateReminderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="155dp"
+            android:text="update reminder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location2" />
+
+        <Button
+            android:id="@+id/returnBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="155dp"
+            android:text="return"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateReminderBtn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
