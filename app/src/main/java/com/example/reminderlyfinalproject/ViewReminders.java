@@ -84,11 +84,19 @@ public class ViewReminders extends Fragment {
         });
 
         //DELETE REMINDER BUTTON
-        view.findViewById(R.id.editReminderBtn).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.deleteReminderBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: IS THIS THE PROPER LOCATION FOR THE DELETE BUTTON??
                 Navigation.findNavController(view).navigate(R.id.action_viewReminders_to_viewReminderDetails);
+            }
+        });
+
+        //PARTY MODE BUTTON
+        view.findViewById(R.id.partyModeBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: MAKE PARTY MODE CONFETTI
             }
         });
 
