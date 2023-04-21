@@ -87,8 +87,7 @@ public class ViewReminders extends Fragment {
         view.findViewById(R.id.deleteReminderBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: IS THIS THE PROPER LOCATION FOR THE DELETE BUTTON??
-                Navigation.findNavController(view).navigate(R.id.action_viewReminders_to_viewReminderDetails);
+                //TODO: HOW TO DELETE A REMINDER
             }
         });
 

@@ -3,6 +3,7 @@ package com.example.reminderlyfinalproject;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,26 @@ public class ViewReminderDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_reminder_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_reminder_details, container, false);
+
+        //BUTTONS
+
+        //UPDATE REMINDER BUTTON
+        view.findViewById(R.id.updateReminderBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: WHAT HAPPENS ONCE WE UPDATE THE BUTTON??
+                //Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_viewReminders);
+            }
+        });
+
+        //RETURN BUTTON
+        view.findViewById(R.id.returnBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_viewReminders);
+            }
+        });
+        return view;
     }
 }

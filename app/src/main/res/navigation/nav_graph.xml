@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_viewReminderDetails_to_saveReminder"
             app:destination="@id/saveReminder" />
+        <action
+            android:id="@+id/action_viewReminderDetails_to_viewReminders"
+            app:destination="@id/viewReminders" />
     </fragment>
     <fragment
         android:id="@+id/saveReminder"
