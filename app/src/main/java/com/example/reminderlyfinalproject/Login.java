@@ -135,6 +135,13 @@ public class Login extends Fragment {
 
             }
         });
+        //REGISTER BUTTON
+        view.findViewById(R.id.registerBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_login_to_createProfile);
+            }
+        });
         return view;
     }
 }
