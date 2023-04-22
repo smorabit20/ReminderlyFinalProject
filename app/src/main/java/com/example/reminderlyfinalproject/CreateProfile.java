@@ -83,7 +83,7 @@ public class CreateProfile extends Fragment {
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putString(user, pass);
-                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders);
+                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
                 }
             }
         });
