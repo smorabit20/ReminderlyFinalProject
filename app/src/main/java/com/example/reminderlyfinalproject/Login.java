@@ -6,11 +6,22 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.reminderlyfinalproject.model.AuthRequest;
+import com.example.reminderlyfinalproject.model.ServiceClient;
+
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,59 +80,47 @@ public class Login extends Fragment {
 
         //LOGIN BUTTON
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
-
-
-
             @Override
-            public void onClick(View v){
-               /* JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //grabs user input username and converts to string variable called username
-                        TextView loginUser = view.findViewById(R.id.profileUsername);
-                        String username = loginUser.toString();
-
-                        //grabs user input password and convert to string variable
-                        TextView loginPassword = view.findViewById(R.id.password);
-                        String password = loginPassword.toString();
-
-                        //make list out of "get" usernames and need to iterate through to make sure username works!
-                        //List<String> tableUsernames = new ArrayList();
-                            try {
-                            username = response.getString("username");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        int x = 5;
-                    }
-                }); */
-
+            public void onClick(View v) {
                 //username
                 EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
+
                 //password
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
 
                 if ((user.equals(""))) {
                     username.setBackgroundColor(Color.RED);
-                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
+
                 } else if (pass.equals("")) {
                     password.setBackgroundColor(Color.RED);
-                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information", Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
-                else {
+                } else if ((user != "") && (pass != "")) {
+                    JsonObjectRequest request = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            AuthRequest.username = user;
+                            AuthRequest.password = pass;
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Volley Error", error.toString());
+                        }
+                    });
+                    ServiceClient client = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+                    client.addRequest(request);
+
                     Bundle bundle = new Bundle();
                     bundle.putString(user, pass);
                     Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
                 }
-
             }
+
         });
         //REGISTER BUTTON
         view.findViewById(R.id.registerBtn).setOnClickListener(new View.OnClickListener() {
