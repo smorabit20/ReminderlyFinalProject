@@ -77,7 +77,7 @@ public class Login extends Fragment {
 
         //BUTTONS
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         //LOGIN BUTTON
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -99,12 +99,9 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
                 } else if ((user != "") && (pass != "")) {
-                    JsonObjectRequest request = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/orders", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            AuthRequest.username = user;
-                            AuthRequest.password = pass;
-
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -112,12 +109,15 @@ public class Login extends Fragment {
                             Log.e("Volley Error", error.toString());
                         }
                     });
-                    ServiceClient client = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
-                    client.addRequest(request);
+
+                    AuthRequest.username = user;
+                    AuthRequest.password = pass;
+                    serviceClient.addRequest(authRequest);
 
                     Bundle bundle = new Bundle();
                     bundle.putString(user, pass);
                     Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
+                    ServiceClient client = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                 }
             }
 
