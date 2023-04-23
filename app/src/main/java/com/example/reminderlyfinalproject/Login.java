@@ -99,7 +99,7 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
                 } else if ((user != "") && (pass != "")) {
-                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/orders", null, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                         }
@@ -117,7 +117,6 @@ public class Login extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString(user, pass);
                     Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
-                    ServiceClient client = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                 }
             }
 
