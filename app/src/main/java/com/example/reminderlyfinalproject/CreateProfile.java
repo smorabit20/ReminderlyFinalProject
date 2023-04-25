@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -80,7 +79,9 @@ public class CreateProfile extends Fragment {
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 JSONObject jsonObject = new JSONObject();
+
                 //username
                 EditText profileUsername = view.findViewById(R.id.profileUsername);
                 String user = profileUsername.getText().toString();
@@ -96,6 +97,7 @@ public class CreateProfile extends Fragment {
 
                 if ((user.equals(""))) {
                     Toast.makeText(getActivity().getApplicationContext(),
+
                             "Failed to Register. Please fill out all sections.", LENGTH_LONG).show();
                 }
                 else if (pass.equals("")) {
@@ -128,6 +130,16 @@ public class CreateProfile extends Fragment {
 
                     });
                     serviceClient.addRequest(request);
+
+                            "Failed to login. Please try again", Toast.LENGTH_LONG).show();
+                } else if (pass.equals("")) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Failed to login. Please try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(user, pass);
+                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
+
                 }
                 }
 
