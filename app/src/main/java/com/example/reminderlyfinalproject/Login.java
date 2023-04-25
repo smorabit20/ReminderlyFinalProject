@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.reminderlyfinalproject.model.AuthRequest;
 import com.example.reminderlyfinalproject.model.ServiceClient;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -77,15 +78,15 @@ public class Login extends Fragment {
 
         //BUTTONS
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         //LOGIN BUTTON
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+
                 //username
                 EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
-
                 //password
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
@@ -99,9 +100,11 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
                 } else if ((user != "") && (pass != "")) {
-                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            AuthRequest.username = user;
+                            AuthRequest.password = pass;
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -109,13 +112,10 @@ public class Login extends Fragment {
                             Log.e("Volley Error", error.toString());
                         }
                     });
-
-                    AuthRequest.username = user;
-                    AuthRequest.password = pass;
                     serviceClient.addRequest(authRequest);
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(user, pass);
+                    bundle.putString("user", user);
                     Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
                 }
             }
