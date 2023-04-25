@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.reminderlyfinalproject.model.AuthRequest;
 import com.example.reminderlyfinalproject.model.ServiceClient;
 
 import org.json.JSONException;
@@ -77,7 +78,6 @@ public class CreateProfile extends Fragment {
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                JSONObject UserPass = new JSONObject();
                 //username
                 EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
@@ -88,35 +88,20 @@ public class CreateProfile extends Fragment {
                 if ((user.equals(""))) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
-                } else if (pass.equals("")) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
-                } else {
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("username", user);
-                        jsonObject.put("password", password);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                        }
-                    }, new Response.ErrorListener(){
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Failed to Register. Please try again later.", Toast.LENGTH_LONG).show();}
-                    });
-                    ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
-                    serviceClient.addRequest(request);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", user);
-                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
                 }
-            }
-        });
+                else if (pass.equals("")) {
+                    Toast.makeText(getActivity().getApplicationContext(),"Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    AuthRequest.username = user;
+                    AuthRequest.password = pass;
+
+                   /* Bundle bundle = new Bundle();
+                    bundle.putString("username", user);
+                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);*/
+                }
+                }
+            });
         return view;
     }
 }
