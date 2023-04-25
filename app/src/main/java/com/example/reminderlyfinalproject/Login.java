@@ -99,9 +99,10 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
                 } else if ((user != "") && (pass != "")) {
-                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", null, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+
                         }
                     }, new Response.ErrorListener() {
                         @Override

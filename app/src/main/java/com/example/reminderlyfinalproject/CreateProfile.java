@@ -1,5 +1,7 @@
 package com.example.reminderlyfinalproject;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -74,33 +76,61 @@ public class CreateProfile extends Fragment {
                              Bundle savedInstanceState) {
         //BUTTONS
         View view = inflater.inflate(R.layout.fragment_create_profile, container, false);
-
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                JSONObject jsonObject = new JSONObject();
                 //username
-                EditText username = view.findViewById(R.id.profileUsername);
-                String user = username.getText().toString();
+                EditText profileUsername = view.findViewById(R.id.profileUsername);
+                String user = profileUsername.getText().toString();
                 //password
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
+                try{
+                    jsonObject.put("username", user);
+                    jsonObject.put("password", pass);
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
 
                 if ((user.equals(""))) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+                            "Failed to Register. Please fill out all sections.", LENGTH_LONG).show();
                 }
                 else if (pass.equals("")) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(),"Failed to Register. Please fill out all sections.", LENGTH_LONG).show();
                 }
                 else{
-                    AuthRequest.username = user;
-                    AuthRequest.password = pass;
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", jsonObject, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String username = "";
+                            String password = "";
+                            try {
+                                username = response.getString("username");
+                                password = response.getString("password");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-                   /* Bundle bundle = new Bundle();
-                    bundle.putString("username", user);
-                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);*/
+                            Bundle bundle = new Bundle();
+                            bundle.putString("username", username);
+                            bundle.putString("password", password);
+                            Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Registering failed. Please try again.", LENGTH_LONG);
+                            toast.show();
+                        }
+
+                    });
+                    serviceClient.addRequest(request);
                 }
                 }
+
             });
         return view;
     }
