@@ -77,17 +77,14 @@ public class CreateProfile extends Fragment {
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                JSONObject UserPass = new JSONObject();
-                //username
                 EditText username = view.findViewById(R.id.profileUsername);
                 String user = username.getText().toString();
-                //password
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
 
-                if (user.equals("") || pass.equals("")) {
+                if (user.isEmpty() || pass.isEmpty()) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+                            "Failed to login. Please fill out all sections.", Toast.LENGTH_LONG).show();
                 } else {
                     JSONObject jsonObject = new JSONObject();
                     try {
@@ -96,25 +93,31 @@ public class CreateProfile extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", jsonObject, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/login", jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            try {
+                                String status = response.getString("status");
+                                if (status.equals("success")) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("username", user);
+                                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
+                                } else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Please check your credentials and try again.", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener(){
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Incorrect username or password. Please try again.", Toast.LENGTH_LONG).show();
-                        }
+                            Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Please try again later.", Toast.LENGTH_LONG).show();}
                     });
                     ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                     serviceClient.addRequest(request);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", user);
-                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
                 }
             }
-
         });
         return view;
     }
