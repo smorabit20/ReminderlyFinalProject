@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -78,9 +77,9 @@ public class CreateProfile extends Fragment {
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText username = view.findViewById(R.id.profileUsername);
+                EditText username = view.findViewById(R.id.createdUsername);
                 String user = username.getText().toString();
-                EditText password = view.findViewById(R.id.password);
+                EditText password = view.findViewById(R.id.createdPassword);
                 String pass = password.getText().toString();
 
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {

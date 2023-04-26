@@ -11,17 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.reminderlyfinalproject.model.AuthRequest;
 import com.example.reminderlyfinalproject.model.ServiceClient;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -85,10 +82,10 @@ public class Login extends Fragment {
                 ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
                 //username
-                EditText username = view.findViewById(R.id.profileUsername);
+                EditText username = view.findViewById(R.id.loginUsername);
                 String user = username.getText().toString();
                 //password
-                EditText password = view.findViewById(R.id.password);
+                EditText password = view.findViewById(R.id.loginPassword);
                 String pass = password.getText().toString();
 
                 if ((user.equals(""))) {
