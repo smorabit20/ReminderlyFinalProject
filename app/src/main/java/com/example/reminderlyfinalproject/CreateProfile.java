@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,7 @@ public class CreateProfile extends Fragment {
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
 
-                if (user.isEmpty() || pass.isEmpty()) {
+                if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Failed to login. Please fill out all sections.", Toast.LENGTH_LONG).show();
                 } else {
