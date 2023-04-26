@@ -95,17 +95,16 @@ public class CreateProfile extends Fragment {
                     }
                     JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/login", jsonObject, new Response.Listener<JSONObject>() {
                         @Override
-                        @Override
                         public void onResponse(JSONObject response) {
                             try {
                                 String status = response.getString("status");
                                 if (status.equals("success")) {
-                                    // Login was successful, navigate to the next screen
+                                    String token = response.getString("token"); // assume the server sends a token on successful login
                                     Bundle bundle = new Bundle();
                                     bundle.putString("username", user);
+                                    bundle.putString("token", token);
                                     Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
                                 } else {
-                                    // Login failed, display an error message to the user
                                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Please check your credentials and try again.", Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
