@@ -113,7 +113,8 @@ public class Login extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("user", user);
-                    Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
+                    //Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_welcomeScreen_to_reminderFragment);
                 }
             }
 

@@ -82,7 +82,7 @@ public class CreateProfile extends Fragment {
                 EditText password = view.findViewById(R.id.createdPassword);
                 String pass = password.getText().toString();
 
-                if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
+                if ((user == "") || pass == "") {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Failed to login. Please fill out all sections.", Toast.LENGTH_LONG).show();
                 } else {

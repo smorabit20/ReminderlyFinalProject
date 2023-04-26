@@ -14,17 +14,8 @@
             android:id="@+id/action_login_to_createProfile"
             app:destination="@id/createProfile" />
         <action
-            android:id="@+id/action_login_to_createProfile2"
-            app:destination="@id/createProfile" />
-        <action
-            android:id="@+id/action_login_to_createProfile3"
-            app:destination="@id/createProfile" />
-        <action
-            android:id="@+id/action_login_to_createProfile4"
-            app:destination="@id/createProfile" />
-        <action
-            android:id="@+id/action_loginBtn_to_viewReminders"
-            app:destination="@id/viewReminders" />
+            android:id="@+id/action_welcomeScreen_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProfile"
@@ -46,9 +37,6 @@
         <action
             android:id="@+id/action_viewReminders_to_saveReminder"
             app:destination="@id/saveReminder" />
-        <action
-            android:id="@+id/action_viewReminders_to_viewReminderDetails2"
-            app:destination="@id/viewReminderDetails" />
     </fragment>
     <fragment
         android:id="@+id/viewReminderDetails"
@@ -71,4 +59,9 @@
             android:id="@+id/action_saveReminder_to_viewReminders"
             app:destination="@id/viewReminders" />
     </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.example.reminderlyfinalproject.ReminderFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" />
 </navigation>
