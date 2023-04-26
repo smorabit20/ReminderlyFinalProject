@@ -85,17 +85,14 @@ public class CreateProfile extends Fragment {
                 EditText password = view.findViewById(R.id.password);
                 String pass = password.getText().toString();
 
-                if ((user.equals(""))) {
+                if (user.equals("") || pass.equals("")) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
-                } else if (pass.equals("")) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Failed to Register. Please fill out all sections.", Toast.LENGTH_LONG).show();
                 } else {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("username", user);
-                        jsonObject.put("password", password);
-
+                        jsonObject.put("password", pass);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -106,7 +103,8 @@ public class CreateProfile extends Fragment {
                     }, new Response.ErrorListener(){
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Failed to Register. Please try again later.", Toast.LENGTH_LONG).show();}
+                            Toast.makeText(getActivity().getApplicationContext(), "Incorrect username or password. Please try again.", Toast.LENGTH_LONG).show();
+                        }
                     });
                     ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                     serviceClient.addRequest(request);
@@ -116,6 +114,7 @@ public class CreateProfile extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
                 }
             }
+
         });
         return view;
     }
