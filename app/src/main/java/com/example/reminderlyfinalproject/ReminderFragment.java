@@ -72,6 +72,7 @@ public class ReminderFragment extends Fragment {
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
 
+
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
         List<Reminder> reminders = new ArrayList<>();
