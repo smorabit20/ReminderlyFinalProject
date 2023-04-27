@@ -68,11 +68,14 @@ public class ReminderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
-        List<Reminder> reminders = new ArrayList<>();
-        MyReminderRecyclerViewAdapter adapter = new MyReminderRecyclerViewAdapter(reminders);
+
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
+
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+
+        List<Reminder> reminders = new ArrayList<>();
+        MyReminderRecyclerViewAdapter adapter = new MyReminderRecyclerViewAdapter(reminders);
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
