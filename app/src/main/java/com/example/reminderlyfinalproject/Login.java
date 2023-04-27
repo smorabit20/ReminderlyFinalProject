@@ -75,6 +75,7 @@ public class Login extends Fragment {
 
         //BUTTONS
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
         //LOGIN BUTTON
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -84,6 +85,7 @@ public class Login extends Fragment {
                 //username
                 EditText username = view.findViewById(R.id.loginUsername);
                 String user = username.getText().toString();
+
                 //password
                 EditText password = view.findViewById(R.id.loginPassword);
                 String pass = password.getText().toString();
@@ -96,25 +98,11 @@ public class Login extends Fragment {
                     password.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
-                } else if ((user != "") && (pass != "")) {
-                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            AuthRequest.username = user;
-                            AuthRequest.password = pass;
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("Volley Error", error.toString());
-                        }
-                    });
-                    serviceClient.addRequest(authRequest);
-
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("user", user);
-                    //Navigation.findNavController(view).navigate(R.id.action_loginBtn_to_viewReminders, bundle);
-                    Navigation.findNavController(view).navigate(R.id.action_welcomeScreen_to_reminderFragment);
+                    bundle.putString("pass", pass);
+                    Navigation.findNavController(view).navigate(R.id.action_welcomeScreen_to_reminderFragment, bundle);
                 }
             }
 

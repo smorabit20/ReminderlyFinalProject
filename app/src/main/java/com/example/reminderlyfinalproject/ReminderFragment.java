@@ -71,6 +71,8 @@ public class ReminderFragment extends Fragment {
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         List<Reminder> reminders = new ArrayList<>();
         MyReminderRecyclerViewAdapter adapter = new MyReminderRecyclerViewAdapter(reminders);
+        String submittedUsername = getArguments().getString("user");
+        String submittedPassword = getArguments().getString("pass");
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -92,8 +94,8 @@ public class ReminderFragment extends Fragment {
                 int x = 1;
             }
         });
-        AuthRequest.username = "testing";
-        AuthRequest.password = "testpassword";
+        AuthRequest.username = submittedUsername;
+        AuthRequest.password = submittedPassword;
         serviceClient.addRequest(authRequest);
         // Set the adapter
         if (view instanceof RecyclerView) {

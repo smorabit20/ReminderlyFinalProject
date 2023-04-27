@@ -31,7 +31,7 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mIdView.setText(String.format("#d", mValues.get(position).reminderId));
+        holder.mIdView.setText(String.format("%d", mValues.get(position).reminderId));
         holder.mContentView.setText(mValues.get(position).reminderName);
     }
 
