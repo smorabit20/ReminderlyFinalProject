@@ -108,10 +108,12 @@ public class ReminderFragment extends Fragment {
         AuthRequest.username = submittedUsername;
         AuthRequest.password = submittedPassword;
         serviceClient.addRequest(authRequest);
+
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {

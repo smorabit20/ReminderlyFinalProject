@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_welcomeScreen_to_reminderFragment"
             app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_welcomeScreen_to_viewCreateDelete"
+            app:destination="@id/viewCreateDelete" />
     </fragment>
     <fragment
         android:id="@+id/createProfile"
@@ -64,4 +67,13 @@
         android:name="com.example.reminderlyfinalproject.ReminderFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/viewCreateDelete"
+        android:name="com.example.reminderlyfinalproject.ViewCreateDelete"
+        android:label="fragment_view_create_delete"
+        tools:layout="@layout/fragment_view_create_delete" >
+        <action
+            android:id="@+id/action_viewCreateDelete_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
 </navigation>
