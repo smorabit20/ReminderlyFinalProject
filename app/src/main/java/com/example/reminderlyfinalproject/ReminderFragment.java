@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  */
-public class ReminderFragment extends Fragment {
+public class ReminderFragment extends Fragment implements SelectListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -76,7 +77,7 @@ public class ReminderFragment extends Fragment {
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
         List<Reminder> reminders = new ArrayList<>();
-        MyReminderRecyclerViewAdapter adapter = new MyReminderRecyclerViewAdapter(reminders);
+        MyReminderRecyclerViewAdapter adapter = new MyReminderRecyclerViewAdapter(reminders, this);
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -122,5 +123,10 @@ public class ReminderFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         return view;
+    }
+
+    @Override
+    public void onItemClicked(Reminder reminderClicked) {
+        Toast.makeText(this.getContext(), reminderClicked.reminderName, Toast.LENGTH_SHORT).show();
     }
 }

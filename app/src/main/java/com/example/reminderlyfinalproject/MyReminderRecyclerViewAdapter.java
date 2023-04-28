@@ -1,8 +1,10 @@
 package com.example.reminderlyfinalproject;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -15,9 +17,11 @@ import java.util.List;
 public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyReminderRecyclerViewAdapter.ViewHolder> {
 
     private final List<Reminder> mValues;
+    private SelectListener mListener;
 
-    public MyReminderRecyclerViewAdapter(List<Reminder> items) {
+    public MyReminderRecyclerViewAdapter(List<Reminder> items, SelectListener listener) {
         mValues = items;
+        mListener = listener;
     }
 
     @Override
@@ -33,6 +37,12 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
 
         holder.mIdView.setText(String.format("%d", mValues.get(position).reminderId));
         holder.mContentView.setText(mValues.get(position).reminderName);
+         holder.mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClicked(mValues.get(position));
+            }
+        });
     }
 
     @Override
@@ -42,6 +52,8 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
+
+        public ConstraintLayout constraintLayout;
         public final TextView mContentView;
         public Reminder mItem;
 
@@ -49,6 +61,7 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
             super(binding.getRoot());
             mIdView = binding.itemNumber;
             mContentView = binding.content;
+            //constraintLayout = mIdView.findViewById(R.id.layoutId);
         }
 
         @Override
