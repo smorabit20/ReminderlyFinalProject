@@ -82,10 +82,17 @@ public class ReminderFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Type reminderList = new TypeToken<ArrayList<Reminder>>() {}.getType();
                 Gson gson = new Gson();
+
                 try {
-                    List<Reminder> updatedReminders = gson.fromJson(response.get("data").toString(), reminderList);
+                    List<Reminder> allReminders = gson.fromJson(response.get("data").toString(), reminderList);
+                    List<Reminder> userReminders = new ArrayList<>();
+                    for (Reminder reminder : allReminders) {
+                        if (reminder.username.equals(submittedUsername)) {
+                            userReminders.add(reminder);
+                        }
+                    }
                     reminders.clear();
-                    reminders.addAll(updatedReminders);
+                    reminders.addAll(userReminders);
                     adapter.notifyDataSetChanged();
                     int x = 1;
                 } catch (JSONException e) {

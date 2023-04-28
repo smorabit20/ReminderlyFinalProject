@@ -30,4 +30,5 @@ public class AuthRequest extends JsonObjectRequest {
         headers.put("Authorization", "Basic " + encoded);
         return headers;
     }
+
 }
