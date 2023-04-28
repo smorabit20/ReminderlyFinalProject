@@ -1,5 +1,6 @@
 package com.example.reminderlyfinalproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -73,7 +74,7 @@ public class CreateProfile extends Fragment {
                              Bundle savedInstanceState) {
         //BUTTONS
         View view = inflater.inflate(R.layout.fragment_create_profile, container, false);
-
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -82,10 +83,16 @@ public class CreateProfile extends Fragment {
                 EditText password = view.findViewById(R.id.createdPassword);
                 String pass = password.getText().toString();
 
-                if ((user == "") || pass == "") {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "Failed to login. Please fill out all sections.", Toast.LENGTH_LONG).show();
-                } else {
+                if ((user.equals(""))) {
+                    username.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+
+                } else if (pass.equals("")) {
+                    password.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+
+                }
+                else {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("username", user);
@@ -93,30 +100,16 @@ public class CreateProfile extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/login", jsonObject, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/users", jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
-                                String status = response.getString("status");
-                                if (status.equals("success")) {
-                                    String token = response.getString("token"); // assume the server sends a token on successful login
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("username", user);
-                                    bundle.putString("token", token);
-                                    Navigation.findNavController(view).navigate(R.id.action_createProfile_to_viewReminders, bundle);
-                                } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Please check your credentials and try again.", Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            Navigation.findNavController(view).navigate(R.id.action_createProfile_to_welcomeScreen);
                         }
                     }, new Response.ErrorListener(){
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Please try again later.", Toast.LENGTH_LONG).show();}
+                            Toast.makeText(getActivity().getApplicationContext(), "Failed to register. Please try again later.", Toast.LENGTH_LONG).show();}
                     });
-                    ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                     serviceClient.addRequest(request);
                 }
             }

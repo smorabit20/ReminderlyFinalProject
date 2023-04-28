@@ -23,8 +23,8 @@
         android:label="fragment_create_profile"
         tools:layout="@layout/fragment_create_profile" >
         <action
-            android:id="@+id/action_createProfile_to_viewReminders"
-            app:destination="@id/viewReminders" />
+            android:id="@+id/action_createProfile_to_welcomeScreen"
+            app:destination="@id/welcomeScreen" />
     </fragment>
     <fragment
         android:id="@+id/viewReminders"
