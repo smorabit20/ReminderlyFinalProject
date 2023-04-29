@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +129,15 @@ public class ReminderFragment extends Fragment implements SelectListener {
 
     @Override
     public void onItemClicked(Reminder reminderClicked) {
-        Toast.makeText(this.getContext(), reminderClicked.reminderName, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this.getContext(), reminderClicked.reminderName, Toast.LENGTH_SHORT).show();
+       // int a = 1;
+        Bundle bundle = new Bundle();
+        bundle.putString("name", reminderClicked.reminderName);
+        bundle.putString("id", String.valueOf(reminderClicked.reminderId));
+        bundle.putString("location", reminderClicked.reminderLocation);
+        Navigation.findNavController(getView()).navigate(R.id.action_reminderFragment_to_viewReminderDetails, bundle);
+        Log.d("The name of event clicked", reminderClicked.reminderName);
+        Log.d("The id of event clicked", String.valueOf(reminderClicked.reminderId));
+
     }
 }

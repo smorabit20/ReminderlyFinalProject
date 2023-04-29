@@ -66,7 +66,11 @@
         android:id="@+id/reminderFragment"
         android:name="com.example.reminderlyfinalproject.ReminderFragment"
         android:label="fragment_item_list"
-        tools:layout="@layout/fragment_item_list" />
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_reminderFragment_to_viewReminderDetails"
+            app:destination="@id/viewReminderDetails" />
+    </fragment>
     <fragment
         android:id="@+id/viewCreateDelete"
         android:name="com.example.reminderlyfinalproject.ViewCreateDelete"

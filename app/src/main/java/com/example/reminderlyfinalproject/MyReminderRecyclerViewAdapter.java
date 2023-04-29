@@ -1,5 +1,6 @@
 package com.example.reminderlyfinalproject;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,7 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
 
         holder.mIdView.setText(String.format("%d", mValues.get(position).reminderId));
         holder.mContentView.setText(mValues.get(position).reminderName);
-         holder.mContentView.setOnClickListener(new View.OnClickListener() {
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onItemClicked(mValues.get(position));
@@ -53,6 +54,8 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
 
+        public CardView cardView;
+
         public ConstraintLayout constraintLayout;
         public final TextView mContentView;
         public Reminder mItem;
@@ -61,7 +64,11 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
             super(binding.getRoot());
             mIdView = binding.itemNumber;
             mContentView = binding.content;
+
             //constraintLayout = mIdView.findViewById(R.id.layoutId);
+           cardView = mIdView.findViewById(R.id.main_container);
+            //cardView = mContentView.findViewById(R.id.main_container);
+
         }
 
         @Override

@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +57,32 @@ public class ViewReminderDetails extends Fragment {
         }
     }
 
+    private String reminderName;
+    private int reminderId;
+
+    private String reminderLocation;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_reminder_details, container, false);
+
+        Bundle args = getArguments();
+
+        if (args != null) {
+            reminderName = args.getString("name");
+            reminderLocation = args.getString("location");
+            reminderId = Integer.parseInt(args.getString("id"));
+        }
+
+        TextView nameTextView = view.findViewById(R.id.reminderName);
+        TextView idTextView = view.findViewById(R.id.reminderTime2);
+        TextView locationTextView = view.findViewById(R.id.reminderLocation);
+
+
+        nameTextView.setText(reminderName);
+        idTextView.setText(String.valueOf(reminderId));
+        locationTextView.setText(String.valueOf(reminderLocation));
 
         //BUTTONS
 
