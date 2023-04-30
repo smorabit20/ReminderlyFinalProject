@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_welcomeScreen_to_reminderFragment"
             app:destination="@id/reminderFragment" />
-        <action
-            android:id="@+id/action_welcomeScreen_to_viewCreateDelete"
-            app:destination="@id/viewCreateDelete" />
     </fragment>
     <fragment
         android:id="@+id/createProfile"
@@ -30,28 +27,13 @@
             app:destination="@id/welcomeScreen" />
     </fragment>
     <fragment
-        android:id="@+id/viewReminders"
-        android:name="com.example.reminderlyfinalproject.ViewReminders"
-        android:label="fragment_view_reminders"
-        tools:layout="@layout/fragment_view_reminders" >
-        <action
-            android:id="@+id/action_viewReminders_to_viewReminderDetails"
-            app:destination="@id/viewReminderDetails" />
-        <action
-            android:id="@+id/action_viewReminders_to_saveReminder"
-            app:destination="@id/saveReminder" />
-    </fragment>
-    <fragment
         android:id="@+id/viewReminderDetails"
         android:name="com.example.reminderlyfinalproject.ViewReminderDetails"
         android:label="fragment_view_reminder_details"
         tools:layout="@layout/fragment_view_reminder_details" >
         <action
-            android:id="@+id/action_viewReminderDetails_to_saveReminder"
-            app:destination="@id/saveReminder" />
-        <action
-            android:id="@+id/action_viewReminderDetails_to_viewReminders"
-            app:destination="@id/viewReminders" />
+            android:id="@+id/action_viewReminderDetails_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/saveReminder"
@@ -59,8 +41,8 @@
         android:label="fragment_save_reminder"
         tools:layout="@layout/fragment_save_reminder" >
         <action
-            android:id="@+id/action_saveReminder_to_viewReminders"
-            app:destination="@id/viewReminders" />
+            android:id="@+id/action_saveReminder_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/reminderFragment"
@@ -70,14 +52,11 @@
         <action
             android:id="@+id/action_reminderFragment_to_viewReminderDetails"
             app:destination="@id/viewReminderDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/viewCreateDelete"
-        android:name="com.example.reminderlyfinalproject.ViewCreateDelete"
-        android:label="fragment_view_create_delete"
-        tools:layout="@layout/fragment_view_create_delete" >
         <action
-            android:id="@+id/action_viewCreateDelete_to_reminderFragment"
-            app:destination="@id/reminderFragment" />
+            android:id="@+id/action_reminderFragment_to_saveReminder"
+            app:destination="@id/saveReminder" />
+        <action
+            android:id="@+id/action_reminderFragment_to_welcomeScreen"
+            app:destination="@id/welcomeScreen" />
     </fragment>
 </navigation>

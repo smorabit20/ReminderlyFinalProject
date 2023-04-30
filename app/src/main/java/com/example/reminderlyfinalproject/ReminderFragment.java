@@ -75,6 +75,10 @@ public class ReminderFragment extends Fragment implements SelectListener {
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
 
+        Bundle bundle = new Bundle();
+        bundle.putString("user", submittedUsername);
+        bundle.putString("pass", submittedPassword);
+
 
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
@@ -124,6 +128,23 @@ public class ReminderFragment extends Fragment implements SelectListener {
             }
             recyclerView.setAdapter(adapter);
         }
+
+        //create reminder button
+        view.findViewById(R.id.newReminderBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_reminderFragment_to_saveReminder, bundle);
+            }
+        });
+
+        //create reminder button
+        view.findViewById(R.id.logOutButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_reminderFragment_to_welcomeScreen);
+            }
+        });
+
         return view;
     }
 

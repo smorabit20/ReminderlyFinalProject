@@ -99,7 +99,7 @@ public class ViewReminderDetails extends Fragment {
         view.findViewById(R.id.returnBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_viewReminders);
+                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment);
             }
         });
         return view;

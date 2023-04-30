@@ -62,13 +62,28 @@ public class SaveReminder extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_save_reminder, container, false);
 
+        String submittedUsername = getArguments().getString("user");
+        String submittedPassword = getArguments().getString("pass");
+
+        Bundle bundle = new Bundle();
+        bundle.putString("user", submittedUsername);
+        bundle.putString("pass", submittedPassword);
+
         //BUTTONS
 
         //ADD REMINDER BUTTON
         view.findViewById(R.id.createReminderBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_viewReminders);
+                Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_reminderFragment, bundle);
+            }
+        });
+
+        //CANCEL CREATE REMINDER BUTTON
+        view.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_reminderFragment, bundle);
             }
         });
 
