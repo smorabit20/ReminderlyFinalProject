@@ -35,7 +35,7 @@ import java.util.List;
  * A fragment representing a list of Items.
  */
 public class ReminderFragment extends Fragment implements SelectListener {
-
+    private Bundle bundle;
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -75,7 +75,7 @@ public class ReminderFragment extends Fragment implements SelectListener {
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
 
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         bundle.putString("user", submittedUsername);
         bundle.putString("pass", submittedPassword);
 
@@ -140,6 +140,7 @@ public class ReminderFragment extends Fragment implements SelectListener {
         view.findViewById(R.id.logOutButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Navigation.findNavController(view).navigate(R.id.action_reminderFragment_to_welcomeScreen);
             }
         });
@@ -151,10 +152,13 @@ public class ReminderFragment extends Fragment implements SelectListener {
     public void onItemClicked(Reminder reminderClicked) {
        // Toast.makeText(this.getContext(), reminderClicked.reminderName, Toast.LENGTH_SHORT).show();
        // int a = 1;
-        Bundle bundle = new Bundle();
+
+        //Bundle bundleReminder = new Bundle();
         bundle.putString("name", reminderClicked.reminderName);
-        bundle.putString("id", String.valueOf(reminderClicked.reminderId));
+        //bundle.putString("id", String.valueOf(reminderClicked.reminderId));
         bundle.putString("location", reminderClicked.reminderLocation);
+        bundle.putString("time", reminderClicked.reminderTime);
+        bundle.putString("date", reminderClicked.reminderDate);
         Navigation.findNavController(getView()).navigate(R.id.action_reminderFragment_to_viewReminderDetails, bundle);
         Log.d("The name of event clicked", reminderClicked.reminderName);
         Log.d("The id of event clicked", String.valueOf(reminderClicked.reminderId));
