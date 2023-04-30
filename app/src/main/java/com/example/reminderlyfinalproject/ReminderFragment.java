@@ -79,7 +79,6 @@ public class ReminderFragment extends Fragment implements SelectListener {
         bundle.putString("user", submittedUsername);
         bundle.putString("pass", submittedPassword);
 
-
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
         List<Reminder> reminders = new ArrayList<>();

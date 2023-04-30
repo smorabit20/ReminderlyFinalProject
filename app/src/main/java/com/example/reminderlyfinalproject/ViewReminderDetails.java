@@ -73,6 +73,7 @@ public class ViewReminderDetails extends Fragment {
             reminderName = args.getString("name");
             reminderLocation = args.getString("location");
             reminderId = Integer.parseInt(args.getString("id"));
+
         }
 
         TextView nameTextView = view.findViewById(R.id.reminderName);
