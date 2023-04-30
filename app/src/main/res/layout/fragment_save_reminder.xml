@@ -13,13 +13,13 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/date"
+            android:id="@+id/createReminderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:ems="10"
+            android:hint="reminder date"
             android:inputType="text"
-            android:text="Reminder Date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/time" />
@@ -45,8 +45,8 @@
             android:layout_marginTop="80dp"
             android:layout_marginEnd="155dp"
             android:ems="10"
+            android:hint="reminder name"
             android:inputType="textPersonName"
-            android:text="Reminder Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CreateAReminderHeader" />
@@ -59,8 +59,8 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="155dp"
             android:ems="10"
+            android:hint="reminder location"
             android:inputType="textPersonName"
-            android:text="Reminder Location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,8 +74,8 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="155dp"
             android:ems="10"
+            android:hint="reminder time"
             android:inputType="textPersonName"
-            android:text="Reminder Time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,7 @@
             android:text="create reminder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            app:layout_constraintTop_toBottomOf="@+id/createReminderDate" />
 
         <Button
             android:id="@+id/cancelButton"

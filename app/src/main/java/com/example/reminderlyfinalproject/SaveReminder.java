@@ -1,5 +1,6 @@
 package com.example.reminderlyfinalproject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,17 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.reminderlyfinalproject.model.AuthRequest;
+import com.example.reminderlyfinalproject.model.ServiceClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,11 +73,13 @@ public class SaveReminder extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_save_reminder, container, false);
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
 
         Bundle bundle = new Bundle();
+
         bundle.putString("user", submittedUsername);
         bundle.putString("pass", submittedPassword);
 
@@ -74,16 +88,69 @@ public class SaveReminder extends Fragment {
         //ADD REMINDER BUTTON
         view.findViewById(R.id.createReminderBtn).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                JSONObject jsonObject = new JSONObject();
 
-                Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_reminderFragment, bundle);
-            }
+                //reminder name
+                EditText createdName = view.findViewById(R.id.name);
+                String createdReminderName = createdName.getText().toString();
+
+                //reminder location
+                EditText createdLocation = view.findViewById(R.id.location);
+                String createdReminderLocation = createdLocation.getText().toString();
+
+                //reminder time
+                EditText createdTime = view.findViewById(R.id.time);
+                String createdReminderTime = createdTime.getText().toString();
+
+                //reminder date
+                EditText createdDate = view.findViewById(R.id.createReminderDate);
+                String createdReminderDate = createdDate.getText().toString();
+
+                if ((createdReminderName.equals("") || createdReminderLocation.equals("") || createdReminderTime.equals("") || createdReminderDate.equals(""))) {
+                    createdName.setBackgroundColor(Color.RED);
+                    createdLocation.setBackgroundColor(Color.RED);
+                    createdTime.setBackgroundColor(Color.RED);
+                    createdDate.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Successfully created a new reminder!", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    try {
+                        jsonObject.put("username", submittedUsername);
+                        jsonObject.put("reminderName", createdReminderName);
+                        jsonObject.put("reminderLocation", createdReminderLocation);
+                        jsonObject.put("reminderTime", createdReminderTime);
+                        jsonObject.put("reminderDate", createdReminderDate);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", jsonObject, new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Successfully created a new reminder!", Toast.LENGTH_LONG).show();
+                        }
+                    }, new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Failed to create new reminder. Try again later.", Toast.LENGTH_LONG).show();}
+                    });
+                    AuthRequest.username = submittedUsername;
+                    AuthRequest.password = submittedPassword;
+
+                    serviceClient.addRequest(authRequest);
+                    Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_reminderFragment, bundle);
+                }
+                }
         });
 
         //CANCEL CREATE REMINDER BUTTON
         view.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_saveReminder_to_reminderFragment, bundle);
             }
         });
