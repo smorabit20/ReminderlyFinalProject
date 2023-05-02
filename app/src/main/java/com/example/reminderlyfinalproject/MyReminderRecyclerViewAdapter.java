@@ -32,16 +32,18 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
 
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mIdView.setText(String.format("%d", mValues.get(position).reminderId));
-        holder.mContentView.setText(mValues.get(position).reminderName);
+       // holder.mIdView.setText(String.format("%d", mValues.get(position).reminderId));
+        holder.mIdView.setText(mValues.get(position).reminderName);
+        //holder.mContentView.setText(mValues.get(position).reminderName);
          holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onItemClicked(mValues.get(position));
+                mListener.onItemClicked(holder.mItem);
             }
         });
     }
@@ -53,10 +55,8 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
-
         public CardView cardView;
 
-        public ConstraintLayout constraintLayout;
         public final TextView mContentView;
         public Reminder mItem;
 
@@ -65,9 +65,7 @@ public class MyReminderRecyclerViewAdapter extends RecyclerView.Adapter<MyRemind
             mIdView = binding.itemNumber;
             mContentView = binding.content;
 
-            //constraintLayout = mIdView.findViewById(R.id.layoutId);
            cardView = mIdView.findViewById(R.id.main_container);
-            //cardView = mContentView.findViewById(R.id.main_container);
 
         }
 

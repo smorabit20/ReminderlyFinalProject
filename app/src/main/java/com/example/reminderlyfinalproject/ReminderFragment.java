@@ -150,18 +150,11 @@ public class ReminderFragment extends Fragment implements SelectListener {
 
     @Override
     public void onItemClicked(Reminder reminderClicked) {
-       // Toast.makeText(this.getContext(), reminderClicked.reminderName, Toast.LENGTH_SHORT).show();
-       // int a = 1;
-
-        //Bundle bundleReminder = new Bundle();
         bundle.putString("name", reminderClicked.reminderName);
-        //bundle.putString("id", String.valueOf(reminderClicked.reminderId));
+        bundle.putInt("id", reminderClicked.reminderId);
         bundle.putString("location", reminderClicked.reminderLocation);
         bundle.putString("time", reminderClicked.reminderTime);
         bundle.putString("date", reminderClicked.reminderDate);
         Navigation.findNavController(getView()).navigate(R.id.action_reminderFragment_to_viewReminderDetails, bundle);
-        Log.d("The name of event clicked", reminderClicked.reminderName);
-        Log.d("The id of event clicked", String.valueOf(reminderClicked.reminderId));
-
     }
 }

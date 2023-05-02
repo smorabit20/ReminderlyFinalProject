@@ -93,28 +93,22 @@ public class ViewReminderDetails extends Fragment {
         bundle.putString("pass", submittedPassword);
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
-        Bundle args = getArguments();
 
-        if (args != null) {
-            reminderName = args.getString("name");
-            reminderLocation = args.getString("location");
-            //reminderId = Integer.parseInt(args.getString("id"));
-            reminderTime = args.getString("time");
-            reminderDate = args.getString("date");
+        reminderName = getArguments().getString("name");
+        reminderLocation = getArguments().getString("location");
+        reminderId = getArguments().getInt("id");
+        reminderTime = getArguments().getString("time");
+        reminderDate = getArguments().getString("date");
 
+        EditText nameView = view.findViewById(R.id.reminderName);
+        EditText timeView = view.findViewById(R.id.reminderTime2);
+        EditText locationView = view.findViewById(R.id.reminderLocation);
+        EditText dateView = view.findViewById(R.id.editDate);
 
-        }
-
-        TextView nameTextView = view.findViewById(R.id.reminderName);
-        TextView idTextView = view.findViewById(R.id.reminderTime2);
-        TextView locationTextView = view.findViewById(R.id.reminderLocation);
-        TextView dateTextView = view.findViewById(R.id.editDate);
-
-
-        dateTextView.setText(reminderDate);
-        nameTextView.setText(reminderName);
-        idTextView.setText(String.valueOf(reminderId));
-        locationTextView.setText(String.valueOf(reminderLocation));
+        nameView.setText(reminderName);
+        timeView.setText(reminderTime);
+        dateView.setText(reminderDate);
+        locationView.setText(String.valueOf(reminderLocation));
 
         //BUTTONS
 
@@ -124,29 +118,30 @@ public class ViewReminderDetails extends Fragment {
             public void onClick(View view) {
                 //TODO: WHAT HAPPENS ONCE WE UPDATE THE BUTTON??
                 EditText newName = getView().findViewById(R.id.reminderName);
-                Log.d("The name of clicked", newName.getText().toString());
-                String name = newName.getText().toString();
-               // newName.setText(name);
-                EditText newTime = getView().findViewById(R.id.reminderTime2);
-                String time = newTime.getText().toString();
-                EditText newLocation = getView().findViewById(R.id.reminderLocation);
-                String location = newLocation.getText().toString();
-                EditText newDate = getView().findViewById(R.id.editDate);
-                String date = newDate.getText().toString();
+                String updatedName = newName.getText().toString();
 
-                if ((name.equals(""))) {
+                EditText newTime = getView().findViewById(R.id.reminderTime2);
+                String updatedTime = newTime.getText().toString();
+
+                EditText newLocation = getView().findViewById(R.id.reminderLocation);
+                String updatedLocation = newLocation.getText().toString();
+
+                EditText newDate = getView().findViewById(R.id.editDate);
+                String updateDate = newDate.getText().toString();
+
+                if ((updatedName.equals(""))) {
                     newName.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please fill out all sections.", Toast.LENGTH_LONG).show();
 
-                } else if (time.equals("")) {
+                } else if (updatedTime.equals("")) {
                     newTime.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please fill out all sections.", Toast.LENGTH_LONG).show();
 
-                } else if (location.equals("")) {
+                } else if (updatedLocation.equals("")) {
                     newLocation.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please fill out all sections.", Toast.LENGTH_LONG).show();
 
-                } else if (date.equals("")) {
+                } else if (updateDate.equals("")) {
                     newDate.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please fill out all sections.", Toast.LENGTH_LONG).show();
 
@@ -154,26 +149,30 @@ public class ViewReminderDetails extends Fragment {
                 else {
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("name", name);
-                        jsonObject.put("time", time);
-                        jsonObject.put("location", location);
-                        jsonObject.put("date", date);
+                        jsonObject.put("username", submittedUsername);
+                        jsonObject.put("reminderId", reminderId);
+                        jsonObject.put("reminderName", updatedName);
+                        jsonObject.put("reminderTime", updatedTime);
+                        jsonObject.put("reminderLocation", updatedLocation);
+                        jsonObject.put("reminderDate", updateDate);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     AuthRequest authRequest = new AuthRequest(Request.Method.PUT, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders/5", jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment, bundle);
+                            Toast.makeText(getActivity().getApplicationContext(), "Successfully updated!", Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener(){
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please try again later.", Toast.LENGTH_LONG).show();}
+                            Toast.makeText(getActivity().getApplicationContext(), "Failed to update. Please try again later.", Toast.LENGTH_LONG).show();
+                        }
                     });
                     AuthRequest.username = submittedUsername;
                     AuthRequest.password = submittedPassword;
                     serviceClient.addRequest(authRequest);
+                    Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment, bundle);
                 }
 
             }
@@ -183,11 +182,7 @@ public class ViewReminderDetails extends Fragment {
         view.findViewById(R.id.returnBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //bundle.putString("name", name);
-                //bundle.putString("location", time);
-                //bundle.putString("time", location);
-                //bundle.putString("date", date);
-                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment);
+                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment, bundle);
             }
         });
         return view;
