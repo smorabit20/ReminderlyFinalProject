@@ -78,10 +78,17 @@ public class CreateProfile extends Fragment {
         //CREATE BUTTON TO VIEW REMINDERS SCREEN
         view.findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //created username to string
                 EditText username = view.findViewById(R.id.createdUsername);
                 String user = username.getText().toString();
+
+                //created password to string
                 EditText password = view.findViewById(R.id.createdPassword);
                 String pass = password.getText().toString();
+
+                //created password check to string
+                EditText passwordMatch = view.findViewById(R.id.passwordCheck);
+                String passCheck = passwordMatch.getText().toString();
 
                 if ((user.equals(""))) {
                     username.setBackgroundColor(Color.RED);
@@ -90,9 +97,17 @@ public class CreateProfile extends Fragment {
                 } else if (pass.equals("")) {
                     password.setBackgroundColor(Color.RED);
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to register. Please fill out all sections.", Toast.LENGTH_LONG).show();
-
                 }
-                else {
+                else if (passCheck.equals("")){
+                    passwordMatch.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Failed to register. Please fill out all sections.", Toast.LENGTH_LONG).show();
+                }
+                else if (!pass.equals(passCheck)) {
+                    password.setBackgroundColor(Color.RED);
+                    passwordMatch.setBackgroundColor(Color.RED);
+                    Toast.makeText(getActivity().getApplicationContext(), "Passwords do not match. Please try again.", Toast.LENGTH_LONG).show();
+                }
+                else if (pass.equals(passCheck)){
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("username", user);
@@ -114,6 +129,13 @@ public class CreateProfile extends Fragment {
                 }
             }
         });
+
+        view.findViewById(R.id.cancelCreation).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_createProfile_to_welcomeScreen);
+            }
+        });
+
         return view;
     }
 }
