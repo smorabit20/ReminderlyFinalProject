@@ -115,7 +115,6 @@ public class SaveReminder extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Successfully created a new reminder!", Toast.LENGTH_LONG).show();
                 }
 
-
                 else {
                     try {
                         jsonObject.put("username", submittedUsername);
