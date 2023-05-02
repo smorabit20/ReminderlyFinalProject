@@ -158,7 +158,7 @@ public class ViewReminderDetails extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    AuthRequest authRequest = new AuthRequest(Request.Method.PUT, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders/5", jsonObject, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.PUT, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Toast.makeText(getActivity().getApplicationContext(), "Successfully updated!", Toast.LENGTH_LONG).show();
@@ -176,6 +176,53 @@ public class ViewReminderDetails extends Fragment {
                 }
 
             }
+        });
+
+
+        //DELETE BUTTON
+        view.findViewById(R.id.deleteReminderBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText newName = getView().findViewById(R.id.reminderName);
+                String updatedName = newName.getText().toString();
+
+                EditText newTime = getView().findViewById(R.id.reminderTime2);
+                String updatedTime = newTime.getText().toString();
+
+                EditText newLocation = getView().findViewById(R.id.reminderLocation);
+                String updatedLocation = newLocation.getText().toString();
+
+                EditText newDate = getView().findViewById(R.id.editDate);
+                String updateDate = newDate.getText().toString();
+                JSONObject jsonObject = new JSONObject();
+
+                try {
+                    jsonObject.put("username", submittedUsername);
+                    jsonObject.put("reminderId", reminderId);
+                    jsonObject.put("reminderName", updatedName);
+                    jsonObject.put("reminderTime", updatedTime);
+                    jsonObject.put("reminderLocation", updatedLocation);
+                    jsonObject.put("reminderDate", updateDate);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Successfully deleted reminder!", Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Failed to delete reminder. Please try again later.", Toast.LENGTH_LONG).show();
+                    }
+                });
+                AuthRequest.username = submittedUsername;
+                AuthRequest.password = submittedPassword;
+                serviceClient.addRequest(authRequest);
+                Navigation.findNavController(view).navigate(R.id.action_viewReminderDetails_to_reminderFragment, bundle);
+            }
+
         });
 
         //RETURN BUTTON
