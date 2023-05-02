@@ -108,7 +108,14 @@ public class ReminderFragment extends Fragment implements SelectListener {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                int x = 1;
+                if (error.networkResponse != null && error.networkResponse.statusCode == 401){
+                    Navigation.findNavController(view).navigate(R.id.action_reminderFragment_to_welcomeScreen);
+                    Toast.makeText(getActivity(), "Username or password is incorrect. Please log in with valid credentials or create an account.", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Toast.makeText(getActivity(), "Unable to log in. Please try again later.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         AuthRequest.username = submittedUsername;

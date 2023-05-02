@@ -99,6 +99,7 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Failed to login. Fill out all information.", Toast.LENGTH_LONG).show();
 
                 } else {
+
                     Bundle bundle = new Bundle();
                     bundle.putString("user", user);
                     bundle.putString("pass", pass);
