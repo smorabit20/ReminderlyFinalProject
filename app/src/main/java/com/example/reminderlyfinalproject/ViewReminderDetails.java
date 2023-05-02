@@ -183,30 +183,10 @@ public class ViewReminderDetails extends Fragment {
         view.findViewById(R.id.deleteReminderBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText newName = getView().findViewById(R.id.reminderName);
-                String updatedName = newName.getText().toString();
 
-                EditText newTime = getView().findViewById(R.id.reminderTime2);
-                String updatedTime = newTime.getText().toString();
+                String deleteUrl = "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders/" + reminderId;
 
-                EditText newLocation = getView().findViewById(R.id.reminderLocation);
-                String updatedLocation = newLocation.getText().toString();
-
-                EditText newDate = getView().findViewById(R.id.editDate);
-                String updateDate = newDate.getText().toString();
-                JSONObject jsonObject = new JSONObject();
-
-                try {
-                    jsonObject.put("username", submittedUsername);
-                    jsonObject.put("reminderId", reminderId);
-                    jsonObject.put("reminderName", updatedName);
-                    jsonObject.put("reminderTime", updatedTime);
-                    jsonObject.put("reminderLocation", updatedLocation);
-                    jsonObject.put("reminderDate", updateDate);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, "https://mopsdev.bw.edu/~ssavel19/rest.php/reminders", jsonObject, new Response.Listener<JSONObject>() {
+                AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, deleteUrl, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(getActivity().getApplicationContext(), "Successfully deleted reminder!", Toast.LENGTH_LONG).show();
