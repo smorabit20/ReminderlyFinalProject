@@ -74,6 +74,7 @@ public class ReminderFragment extends Fragment implements SelectListener {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         MediaPlayer mediaPlayer = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.weliketoparty);
+        boolean[] isPlaying = {false};
 
         //Grabbing user + password!
         String submittedUsername = getArguments().getString("user");
@@ -162,8 +163,14 @@ public class ReminderFragment extends Fragment implements SelectListener {
        view.findViewById(R.id.partyMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer.start();
+                if (isPlaying[0]) {
+                    mediaPlayer.pause();
+                    isPlaying[0] = false;
+                } else {
+                    mediaPlayer.start();
+                    isPlaying[0] = true;
                 }
+            }
         });
 
         return view;
