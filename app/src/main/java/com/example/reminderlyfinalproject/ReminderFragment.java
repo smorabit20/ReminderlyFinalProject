@@ -1,6 +1,7 @@
 package com.example.reminderlyfinalproject;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -73,7 +73,7 @@ public class ReminderFragment extends Fragment implements SelectListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        Switch partySwitch = view.findViewById(R.id.togglePartyMode);
+        MediaPlayer mediaPlayer = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.weliketoparty);
 
         //Grabbing user + password!
         String submittedUsername = getArguments().getString("user");
@@ -159,13 +159,11 @@ public class ReminderFragment extends Fragment implements SelectListener {
 
 
         //switch
-       partySwitch.setOnClickListener(new View.OnClickListener() {
+       view.findViewById(R.id.partyMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (partySwitch.isChecked()){
-
+                mediaPlayer.start();
                 }
-            }
         });
 
         return view;
