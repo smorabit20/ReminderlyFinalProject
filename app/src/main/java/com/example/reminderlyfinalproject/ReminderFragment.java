@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class ReminderFragment extends Fragment implements SelectListener {
     private Bundle bundle;
+
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -72,6 +73,9 @@ public class ReminderFragment extends Fragment implements SelectListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
+        Switch partySwitch = view.findViewById(R.id.togglePartyMode);
+
+        //Grabbing user + password!
         String submittedUsername = getArguments().getString("user");
         String submittedPassword = getArguments().getString("pass");
 
@@ -79,6 +83,7 @@ public class ReminderFragment extends Fragment implements SelectListener {
         bundle.putString("user", submittedUsername);
         bundle.putString("pass", submittedPassword);
 
+        //Service client creation
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
         List<Reminder> reminders = new ArrayList<>();
@@ -143,12 +148,23 @@ public class ReminderFragment extends Fragment implements SelectListener {
             }
         });
 
-        //create reminder button
+        //Logout Button
         view.findViewById(R.id.logOutButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Navigation.findNavController(view).navigate(R.id.action_reminderFragment_to_welcomeScreen);
+            }
+        });
+
+
+        //switch
+       partySwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (partySwitch.isChecked()){
+
+                }
             }
         });
 
